@@ -10,5 +10,7 @@ libraryDependencies ++= Seq(
     ),
   "org.glassfish.hk2" % "hk2-utils" % "2.2.0-b15",
   "org.glassfish.hk2" % "hk2-locator" % "2.2.0-b15",
-  "javax.inject" % "javax.inject" % "1"
+  "javax.inject" % "javax.inject" % "1",
+  "joda-time" % "joda-time" % "2.0",
+  "com.google.code.findbugs" % "jsr305" % "2.0.2"
 )
