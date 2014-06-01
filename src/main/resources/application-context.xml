@@ -7,6 +7,7 @@
 
     <!-- context:property-placeholder location="classpath:spring/application.properties" /
       -->
+    <import resource="hibernate-beans.xml"/>
 
     <bean id="fredRestTemplate" class="org.springframework.web.client.RestTemplate">
         <property name="messageConverters">
