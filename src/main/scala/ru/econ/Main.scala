@@ -12,6 +12,7 @@ import com.thoughtworks.xstream.io.xml.{XmlFriendlyReplacer, XppDriver}
 import com.coherentlogic.fred.client.core.converters.{SortOrderEnumConverter, OutputTypeEnumConverter, ApplicationZipMessageConverter}
 import com.thoughtworks.xstream.converters.basic.DateConverter
 import org.springframework.context.support.ClassPathXmlApplicationContext
+import org.h2.tools.Server
 
 /**
  * Created by vshakhov on 02.03.14.
@@ -19,10 +20,16 @@ import org.springframework.context.support.ClassPathXmlApplicationContext
 object Main {
 
   def main(args: Array[String]) {
-    val applicationContext = new ClassPathXmlApplicationContext("/application-context.xml");
+    // start the TCP Server
+    val server = Server.createTcpServer().start
+
+    val applicationContext = new ClassPathXmlApplicationContext("/application-context.xml")
     val restTemplate = applicationContext.getBean("fredRestTemplate", classOf[RestTemplate])
     val calc = new Calc(restTemplate)
-    calc.calc()
+
+    calc.calc
+
+    server.stop
   }
 
 }

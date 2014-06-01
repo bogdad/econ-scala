@@ -8,6 +8,7 @@ libraryDependencies ++= Seq(
   "com.coherentlogic.fred.client" % "fred-client-core" % "0.9.14" excludeAll(
     ExclusionRule(organization = "org.glassfish.hk2")
     ),
+  "com.coherentlogic.fred.client" % "fred-client-db-int" % "0.9.14",
   "org.glassfish.hk2" % "hk2-utils" % "2.2.0-b15",
   "org.glassfish.hk2" % "hk2-locator" % "2.2.0-b15",
   "javax.inject" % "javax.inject" % "1",
