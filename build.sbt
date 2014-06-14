@@ -1,6 +1,6 @@
 version := "0.1"
 
-scalaVersion := "2.10.3"
+scalaVersion := "2.11.1"
 
 libraryDependencies ++= Seq(
   "org.springframework" % "spring-core" % "3.2.8.RELEASE",
@@ -15,5 +15,7 @@ libraryDependencies ++= Seq(
   "joda-time" % "joda-time" % "2.3",
   "com.google.code.findbugs" % "jsr305" % "1.3.+",
   "org.joda" % "joda-convert" % "1.2",
-  "com.h2database" % "h2" % "1.4.178"
+  "com.h2database" % "h2" % "1.4.178",
+  "org.scalatest" % "scalatest" % "2.2.0",
+  "junit" % "junit" % "4.11"
 )
