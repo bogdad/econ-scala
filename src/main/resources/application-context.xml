@@ -95,5 +95,7 @@
             </array>
         </property>
     </bean>
+    <context:annotation-config/>
+    <bean name="/SpringConfig" class="ru.econ.internal.SpringConfig" />
 </beans>
 

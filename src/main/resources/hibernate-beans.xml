@@ -61,10 +61,10 @@
     <tx:annotation-driven transaction-manager="txManager" />
 
     <bean name="seriessDAO" class="com.coherentlogic.fred.client.db.integration.dao.SeriessDAO">
-        <!--<constructor-arg ref="sessionFactory"/>/-->
+        <constructor-arg ref="sessionFactory"/>
     </bean>
 
     <bean name="categoriesDAO" class="com.coherentlogic.fred.client.db.integration.dao.CategoriesDAO">
-        <!--<constructor-arg ref="sessionFactory"/>/-->
+        <constructor-arg ref="sessionFactory"/>
     </bean>
 </beans>
