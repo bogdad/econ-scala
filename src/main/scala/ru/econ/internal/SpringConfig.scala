@@ -1,6 +1,7 @@
 package ru.econ.internal
 
 import org.springframework.context.annotation.{AnnotationConfigApplicationContext, Bean, ImportResource, Configuration}
+import org.springframework.orm.jpa.LocalEntityManagerFactoryBean
 import org.springframework.web.client.RestTemplate
 import com.coherentlogic.fred.client.db.integration.dao.{SeriessDAO, ObservationsDAO}
 import com.coherentlogic.fred.client.core.builders.QueryBuilder
@@ -27,6 +28,16 @@ class SpringConfig {
   @Bean
   def seriesDao(manager: EntityManager) {
     new SeriessDao(manager)
+  }
+
+  @Bean
+  def observationsDao(): ObservationsDAO = {
+    new ObservationsDAO()
+  }
+
+  @Bean
+  def entityManagerFactory(): LocalEntityManagerFactoryBean = {
+    new LocalEntityManagerFactoryBean()
   }
 }
 
