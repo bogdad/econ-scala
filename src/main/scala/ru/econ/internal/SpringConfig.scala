@@ -7,8 +7,7 @@ import com.coherentlogic.fred.client.db.integration.dao.{SeriessDAO, Observation
 import com.coherentlogic.fred.client.core.builders.QueryBuilder
 import org.springframework.context.support.ClassPathXmlApplicationContext
 import org.springframework.context.ApplicationContext
-import javax.persistence.EntityManager
-import ru.econ.dao.SeriessDao
+import javax.persistence.{EntityManagerFactory, Persistence, EntityManager}
 
 /**
  * Created by vshakhov on 14.06.14.
@@ -21,24 +20,16 @@ class SpringConfig {
     new Points(queryBuilder, observationsDao)
   }
   @Bean
-  def econBuilder(restTemplate: RestTemplate): QueryBuilder = {
-    EconQueryBuilder(restTemplate)
-  }
+  def econBuilder(restTemplate: RestTemplate): QueryBuilder = EconQueryBuilder(restTemplate)
 
   @Bean
-  def seriesDao(manager: EntityManager) {
-    new SeriessDao(manager)
-  }
+  def seriesDao() = new SeriessDAO()
 
   @Bean
-  def observationsDao(): ObservationsDAO = {
-    new ObservationsDAO()
-  }
+  def observationsDao(): ObservationsDAO = new ObservationsDAO
 
   @Bean
-  def entityManagerFactory(): LocalEntityManagerFactoryBean = {
-    new LocalEntityManagerFactoryBean()
-  }
+  def entityManagerFactory(): LocalEntityManagerFactoryBean = new LocalEntityManagerFactoryBean
 }
 
 object SpringConfig {

@@ -1,9 +1,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:util="http://www.springframework.org/schema/util"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:util="http://www.springframework.org/schema/util" xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd
@@ -12,59 +10,34 @@
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+    <!--
+      jdbc:h2:tcp://localhost/~/NewTest2
+      jdbc:h2:mem:BasicExample
+      -->
     <bean id="dataSource"
-          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.h2.Driver" />
-        <!-- Direct to file: jdbc:h2:~/FREDUpdates -->
-        <!-- ;DB_CLOSE_DELAY=-1 is here to fix the JdbcSQLException: Table
-             "DEFAULTOBJECT" not found; SQL statement exception.
-             ;MVCC=TRUE
-             jdbc:h2:mem:test;DB_CLOSE_DELAY=-1
-             jdbc:h2:tcp://localhost/~/FREDUpdates
-          -->
-        <property name="url" value="jdbc:h2:tcp://localhost/~/FredApi" />
+        <property name="url" value="jdbc:h2:tcp//localhost/~/FREDApi" />
         <property name="username" value="sa" />
         <property name="password" value="password" />
     </bean>
 
-    <bean id="sessionFactory"
-          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    <bean id="entityManagerFactory"
+        class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="packagesToScan" value="com.coherentlogic.fred.client.core.domain"/>
-
-        <property name="annotatedClasses">
-            <util:list>
-                <!--<value>com.coherentlogic.fred.client.core.domain.DefaultObject</value>-->
-                <value>com.coherentlogic.fred.client.core.domain.Category</value>
-                <value>com.coherentlogic.fred.client.core.domain.Categories</value>
-                <!--<value>com.coherentlogic.fred.client.core.domain.IdentityObject</value>-->
-                <value>com.coherentlogic.fred.client.core.domain.Seriess</value>
-                <value>com.coherentlogic.fred.client.core.domain.Series</value>
-                <value>com.coherentlogic.fred.client.core.domain.Category</value>
-                <value>com.coherentlogic.fred.client.core.domain.Categories</value>
-            </util:list>
-        </property>
-
-        <property name="hibernateProperties">
-            <util:properties>
-                <prop key="dialect">org.hibernate.dialect.H2Dialect</prop>
-                <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
-            </util:properties>
+        <property name="packagesToScan" value="com.coherentlogic.fred.client" />
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="showSql" value="true" />
+                <property name="generateDdl" value="true" />
+                <property name="databasePlatform" value="org.hibernate.dialect.H2Dialect" />
+            </bean>
         </property>
     </bean>
 
-    <bean id="txManager"
-          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory" />
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
 
-    <tx:annotation-driven transaction-manager="txManager" />
-
-    <!--<bean name="seriessDAO" class="com.coherentlogic.fred.client.db.integration.dao.SeriessDAO">
-        <constructor-arg ref="sessionFactory"/>
-    </bean>/-->
-
-    <!--<bean name="categoriesDAO" class="com.coherentlogic.fred.client.db.integration.dao.CategoriesDAO">
-        <constructor-arg ref="sessionFactory"/>
-    </bean>/-->
+    <tx:annotation-driven transaction-manager="transactionManager" />
 </beans>

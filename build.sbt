@@ -3,8 +3,8 @@ version := "0.1"
 scalaVersion := "2.11.1"
 
 libraryDependencies ++= Seq(
-  "org.springframework" % "spring-core" % "3.2.8.RELEASE",
-  "org.springframework" % "spring-context" % "3.2.8.RELEASE",
+  "org.springframework" % "spring-core" % "4.0.5.RELEASE",
+  "org.springframework" % "spring-context" % "4.0.5.RELEASE",
   "com.coherentlogic.fred" % "client" % "1.0.3-RELEASE" excludeAll(
     ExclusionRule(organization = "org.glassfish.hk2")),
   "com.coherentlogic.fred.client" % "fred-client-db-int" % "1.0.3-RELEASE",
